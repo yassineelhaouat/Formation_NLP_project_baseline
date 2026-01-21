@@ -1183,3 +1183,113 @@ OSError: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Pytho
 2026-01-21 11:56:55,439 | __main__ | INFO | Articles traités: 81
 2026-01-21 11:56:55,439 | __main__ | INFO | Temps total: 11:56:55
 2026-01-21 11:56:55,439 | __main__ | INFO | ===========================================================================
+2026-01-21 12:55:49,475 | __main__ | INFO | 🚀 Pipeline Veille NLP - Démarrage
+2026-01-21 12:55:49,475 | __main__ | INFO | Configuration chargée depuis: config.json
+2026-01-21 12:55:49,475 | __main__ | INFO | 
+===========================================================================
+2026-01-21 12:55:49,475 | __main__ | INFO | ÉTAPE 1 : COLLECTE ARTICLES
+2026-01-21 12:55:49,475 | __main__ | INFO | ===========================================================================
+2026-01-21 12:55:49,475 | news_collector | INFO | ======================================================================
+2026-01-21 12:55:49,475 | news_collector | INFO | 📥 COLLECTE ARTICLES - Début
+2026-01-21 12:55:49,475 | news_collector | INFO | ======================================================================
+2026-01-21 12:55:49,475 | news_collector | INFO | 🔄 Collecte HackerNews...
+2026-01-21 12:55:49,475 | news_collector | INFO |   Scraping page 1/7
+2026-01-21 12:56:04,633 | news_collector | INFO |   Scraping page 2/7
+2026-01-21 12:56:19,775 | news_collector | INFO |   Scraping page 3/7
+2026-01-21 12:56:32,859 | news_collector | INFO |   Scraping page 4/7
+2026-01-21 12:56:46,607 | news_collector | INFO |   Scraping page 5/7
+2026-01-21 12:57:03,651 | news_collector | INFO |   Scraping page 6/7
+2026-01-21 12:57:17,158 | news_collector | INFO |   Scraping page 7/7
+2026-01-21 12:57:33,065 | news_collector | INFO | ✅ HackerNews: 210 articles collectés
+2026-01-21 12:57:33,065 | news_collector | INFO | 📰 Collecte Towards Data Science...
+2026-01-21 12:57:33,065 | news_collector | INFO |   Scraping TDS page 1/5: https://towardsdatascience.com/latest
+2026-01-21 12:57:33,714 | news_collector | WARNING |   ✗ Erreur page 1: 504 Server Error: Gateway Time-out for url: https://towardsdatascience.com/latest
+2026-01-21 12:57:33,714 | news_collector | INFO |   Scraping TDS page 2/5: https://towardsdatascience.com/latest/page/2
+2026-01-21 12:57:33,924 | news_collector | WARNING |   ✗ Erreur page 2: 504 Server Error: Gateway Time-out for url: https://towardsdatascience.com/latest/page/2
+2026-01-21 12:57:33,924 | news_collector | INFO |   Scraping TDS page 3/5: https://towardsdatascience.com/latest/page/3
+2026-01-21 12:57:34,217 | news_collector | WARNING |   ✗ Erreur page 3: 504 Server Error: Gateway Time-out for url: https://towardsdatascience.com/latest/page/3
+2026-01-21 12:57:34,217 | news_collector | INFO |   Scraping TDS page 4/5: https://towardsdatascience.com/latest/page/4
+2026-01-21 12:57:34,405 | news_collector | WARNING |   ✗ Erreur page 4: 504 Server Error: Gateway Time-out for url: https://towardsdatascience.com/latest/page/4
+2026-01-21 12:57:34,405 | news_collector | INFO |   Scraping TDS page 5/5: https://towardsdatascience.com/latest/page/5
+2026-01-21 12:57:34,608 | news_collector | WARNING |   ✗ Erreur page 5: 504 Server Error: Gateway Time-out for url: https://towardsdatascience.com/latest/page/5
+2026-01-21 12:57:34,622 | news_collector | INFO | ✅ TowardsDataScience: 0 articles collectés
+2026-01-21 12:57:34,622 | news_collector | INFO | ======================================================================
+2026-01-21 12:57:34,622 | news_collector | INFO | 📊 RÉSUMÉ COLLECTE
+2026-01-21 12:57:34,622 | news_collector | INFO |    Total articles : 210
+2026-01-21 12:57:34,622 | news_collector | INFO |    Total erreurs : 5
+2026-01-21 12:57:34,622 | news_collector | INFO | ======================================================================
+2026-01-21 12:57:34,631 | news_collector | INFO | ✅ Articles sauvegardés: data/articles_raw.jsonl
+2026-01-21 12:57:34,631 | news_collector | INFO | ✅ Erreurs sauvegardées: data/collection_errors.json
+2026-01-21 12:57:34,637 | __main__ | INFO | ✅ ÉTAPE 1 COMPLÉTÉE : 210 articles collectés
+2026-01-21 12:57:34,644 | __main__ | INFO | 
+===========================================================================
+2026-01-21 12:57:34,644 | __main__ | INFO | ÉTAPE 2 : PRÉTRAITEMENT NLP
+2026-01-21 12:57:34,645 | __main__ | INFO | ===========================================================================
+2026-01-21 12:57:35,240 | text_preprocessor | INFO | ✅ Modèle spaCy chargé: en_core_web_sm
+2026-01-21 12:57:35,240 | text_preprocessor | INFO | 🔧 Preprocessing 210 articles...
+2026-01-21 12:57:36,293 | text_preprocessor | INFO |   ✓ 20/210 articles
+2026-01-21 12:57:38,331 | text_preprocessor | INFO |   ✓ 40/210 articles
+2026-01-21 12:57:39,624 | text_preprocessor | INFO |   ✓ 60/210 articles
+2026-01-21 12:57:40,847 | text_preprocessor | INFO |   ✓ 80/210 articles
+2026-01-21 12:57:42,488 | text_preprocessor | INFO |   ✓ 100/210 articles
+2026-01-21 12:57:44,327 | text_preprocessor | INFO |   ✓ 120/210 articles
+2026-01-21 12:57:46,291 | text_preprocessor | INFO |   ✓ 140/210 articles
+2026-01-21 12:57:47,853 | text_preprocessor | INFO |   ✓ 160/210 articles
+2026-01-21 12:57:59,065 | text_preprocessor | INFO |   ✓ 180/210 articles
+2026-01-21 12:58:01,572 | text_preprocessor | INFO |   ✓ 200/210 articles
+2026-01-21 12:58:02,200 | text_preprocessor | INFO | ✅ Preprocessing terminé: 210 articles
+2026-01-21 12:58:02,213 | __main__ | INFO | ✅ ÉTAPE 2 COMPLÉTÉE : 210 articles traités
+2026-01-21 12:58:02,218 | __main__ | INFO | 
+===========================================================================
+2026-01-21 12:58:02,218 | __main__ | INFO | ÉTAPE 3 : CLASSIFICATION & EXTRACTION
+2026-01-21 12:58:02,219 | __main__ | INFO | ===========================================================================
+2026-01-21 12:58:02,219 | news_classifier | INFO | 📥 Chargement modèle: facebook/bart-large-mnli...
+2026-01-21 12:58:03,849 | news_classifier | INFO | ✅ Modèle chargé: facebook/bart-large-mnli
+2026-01-21 12:58:04,643 | news_classifier | INFO | ✅ Sentiment classifier chargé
+2026-01-21 12:58:04,643 | news_classifier | INFO | 🤖 Classification 210 articles...
+2026-01-21 12:58:12,114 | news_classifier | INFO |   ✓ 10/210 articles
+2026-01-21 12:58:16,915 | news_classifier | INFO |   ✓ 20/210 articles
+2026-01-21 12:58:21,433 | news_classifier | INFO |   ✓ 30/210 articles
+2026-01-21 12:58:25,806 | news_classifier | INFO |   ✓ 40/210 articles
+2026-01-21 12:58:30,331 | news_classifier | INFO |   ✓ 50/210 articles
+2026-01-21 12:58:35,312 | news_classifier | INFO |   ✓ 60/210 articles
+2026-01-21 12:58:40,251 | news_classifier | INFO |   ✓ 70/210 articles
+2026-01-21 12:58:44,807 | news_classifier | INFO |   ✓ 80/210 articles
+2026-01-21 12:58:50,020 | news_classifier | INFO |   ✓ 90/210 articles
+2026-01-21 12:58:54,462 | news_classifier | INFO |   ✓ 100/210 articles
+2026-01-21 12:58:58,387 | news_classifier | INFO |   ✓ 110/210 articles
+2026-01-21 12:59:02,248 | news_classifier | INFO |   ✓ 120/210 articles
+2026-01-21 12:59:05,885 | news_classifier | INFO |   ✓ 130/210 articles
+2026-01-21 12:59:10,976 | news_classifier | INFO |   ✓ 140/210 articles
+2026-01-21 12:59:15,120 | news_classifier | INFO |   ✓ 150/210 articles
+2026-01-21 12:59:19,012 | news_classifier | INFO |   ✓ 160/210 articles
+2026-01-21 12:59:22,849 | news_classifier | INFO |   ✓ 170/210 articles
+2026-01-21 12:59:26,929 | news_classifier | INFO |   ✓ 180/210 articles
+2026-01-21 12:59:30,935 | news_classifier | INFO |   ✓ 190/210 articles
+2026-01-21 12:59:34,918 | news_classifier | INFO |   ✓ 200/210 articles
+2026-01-21 12:59:39,263 | news_classifier | INFO |   ✓ 210/210 articles
+2026-01-21 12:59:39,265 | news_classifier | INFO | 🔍 Duplicate detection (threshold=0.85)...
+2026-01-21 12:59:39,281 | news_classifier | INFO | ✅ Duplicate detection: 1 doublons trouvés
+2026-01-21 12:59:39,281 | news_classifier | INFO | ✅ Classification terminée: 210 articles
+2026-01-21 12:59:39,306 | __main__ | INFO | ✅ ÉTAPE 3 COMPLÉTÉE : 210 articles classifiés
+2026-01-21 12:59:39,566 | __main__ | INFO | 
+===========================================================================
+2026-01-21 12:59:39,566 | __main__ | INFO | ÉTAPE 4 : GÉNÉRATION RAPPORT
+2026-01-21 12:59:39,566 | __main__ | INFO | ===========================================================================
+2026-01-21 12:59:39,566 | report_generator | INFO | 📝 Génération rapport...
+2026-01-21 12:59:39,566 | report_generator | INFO | 📈 Extraction trending topics...
+2026-01-21 12:59:39,566 | report_generator | INFO | ✅ 3 trending topics trouvés
+2026-01-21 12:59:39,566 | report_generator | INFO | ✨ Extraction must-read articles...
+2026-01-21 12:59:39,566 | report_generator | INFO | ✅ 5 must-read articles sélectionnés
+2026-01-21 12:59:39,566 | report_generator | INFO | 📊 Analyse thématique...
+2026-01-21 12:59:39,566 | report_generator | INFO | 😊 Analyse sentiments...
+2026-01-21 12:59:39,566 | report_generator | INFO | ✅ Rapport sauvegardé: output\veille_report.txt
+2026-01-21 12:59:39,582 | __main__ | INFO | ✅ ÉTAPE 4 COMPLÉTÉE : Rapport sauvegardé
+2026-01-21 12:59:39,582 | __main__ | INFO | 
+===========================================================================
+2026-01-21 12:59:39,582 | __main__ | INFO | ✅ PIPELINE COMPLET - SUCCÈS
+2026-01-21 12:59:39,582 | __main__ | INFO | ===========================================================================
+2026-01-21 12:59:39,582 | __main__ | INFO | Rapport généré: output/veille_report.txt
+2026-01-21 12:59:39,582 | __main__ | INFO | Articles traités: 210
+2026-01-21 12:59:39,582 | __main__ | INFO | Temps total: 12:59:39
+2026-01-21 12:59:39,582 | __main__ | INFO | ===========================================================================

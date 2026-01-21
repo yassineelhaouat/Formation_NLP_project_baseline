@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "source": "TowardsDataScience",
+    "page": 1,
+    "error": "Request failed: 504 Server Error: Gateway Time-out for url: https://towardsdatascience.com/latest",
+    "timestamp": "2026-01-21T12:57:33.714903"
+  },
+  {
+    "source": "TowardsDataScience",
+    "page": 2,
+    "error": "Request failed: 504 Server Error: Gateway Time-out for url: https://towardsdatascience.com/latest/page/2",
+    "timestamp": "2026-01-21T12:57:33.924934"
+  },
+  {
+    "source": "TowardsDataScience",
+    "page": 3,
+    "error": "Request failed: 504 Server Error: Gateway Time-out for url: https://towardsdatascience.com/latest/page/3",
+    "timestamp": "2026-01-21T12:57:34.217798"
+  },
+  {
+    "source": "TowardsDataScience",
+    "page": 4,
+    "error": "Request failed: 504 Server Error: Gateway Time-out for url: https://towardsdatascience.com/latest/page/4",
+    "timestamp": "2026-01-21T12:57:34.405826"
+  },
+  {
+    "source": "TowardsDataScience",
+    "page": 5,
+    "error": "Request failed: 504 Server Error: Gateway Time-out for url: https://towardsdatascience.com/latest/page/5",
+    "timestamp": "2026-01-21T12:57:34.608026"
+  }
+]
