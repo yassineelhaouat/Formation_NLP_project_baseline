@@ -22,6 +22,7 @@ pandas>=2.1.3
 python-dotenv==1.0.0
 matplotlib
 seaborn
+wordcloud
 
 # Optional: GPU support
 # torch-cuda (install separately based on your CUDA version)

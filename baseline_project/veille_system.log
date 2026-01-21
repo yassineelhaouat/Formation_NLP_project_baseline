@@ -711,3 +711,268 @@ If this is a private repository, make sure to pass a token having permission to 
 2026-01-20 16:43:40,011 | __main__ | INFO | Articles traités: 303
 2026-01-20 16:43:40,011 | __main__ | INFO | Temps total: 16:43:40
 2026-01-20 16:43:40,011 | __main__ | INFO | ===========================================================================
+2026-01-21 09:24:34,406 | __main__ | INFO | 🚀 Pipeline Veille NLP - Démarrage
+2026-01-21 09:24:34,407 | __main__ | INFO | Configuration chargée depuis: config.json
+2026-01-21 09:24:34,407 | __main__ | INFO | 
+===========================================================================
+2026-01-21 09:24:34,407 | __main__ | INFO | ÉTAPE 1 : COLLECTE ARTICLES
+2026-01-21 09:24:34,407 | __main__ | INFO | ===========================================================================
+2026-01-21 09:24:34,407 | news_collector | INFO | ======================================================================
+2026-01-21 09:24:34,407 | news_collector | INFO | 📥 COLLECTE ARTICLES - Début
+2026-01-21 09:24:34,408 | news_collector | INFO | ======================================================================
+2026-01-21 09:24:34,408 | news_collector | INFO | 🔄 Collecte HackerNews...
+2026-01-21 09:24:34,408 | news_collector | INFO |   Scraping page 1/2
+2026-01-21 09:24:51,250 | news_collector | INFO |   Scraping page 2/2
+2026-01-21 09:25:04,408 | news_collector | INFO | ✅ HackerNews: 60 articles collectés
+2026-01-21 09:25:04,411 | news_collector | INFO | 🔄 Collecte RSS: https://pycoders.com/feed
+2026-01-21 09:25:04,981 | news_collector | INFO | ✅ RSS: 3 articles collectés
+2026-01-21 09:25:04,981 | news_collector | INFO | Collecte Towards Data Science...
+2026-01-21 09:25:04,981 | news_collector | INFO | 🔄 Collecte RSS: https://towardsdatascience.com/feed
+2026-01-21 09:25:05,397 | news_collector | INFO | ✅ RSS: 20 articles collectés
+2026-01-21 09:25:05,397 | news_collector | INFO | ======================================================================
+2026-01-21 09:25:05,397 | news_collector | INFO | 📊 RÉSUMÉ COLLECTE
+2026-01-21 09:25:05,397 | news_collector | INFO |    Total articles : 83
+2026-01-21 09:25:05,397 | news_collector | INFO |    Total erreurs : 0
+2026-01-21 09:25:05,397 | news_collector | INFO | ======================================================================
+2026-01-21 09:25:05,397 | news_collector | INFO | ✅ Articles sauvegardés: data/articles_raw.jsonl
+2026-01-21 09:25:05,397 | news_collector | INFO | ✅ Erreurs sauvegardées: data/collection_errors.json
+2026-01-21 09:25:05,397 | __main__ | INFO | ✅ ÉTAPE 1 COMPLÉTÉE : 83 articles collectés
+2026-01-21 09:25:05,418 | __main__ | INFO | 
+===========================================================================
+2026-01-21 09:25:05,418 | __main__ | INFO | ÉTAPE 2 : PRÉTRAITEMENT NLP
+2026-01-21 09:25:05,418 | __main__ | INFO | ===========================================================================
+2026-01-21 09:25:05,999 | text_preprocessor | INFO | ✅ Modèle spaCy chargé: en_core_web_sm
+2026-01-21 09:25:05,999 | text_preprocessor | INFO | 🔧 Preprocessing 83 articles...
+2026-01-21 09:25:07,287 | text_preprocessor | INFO |   ✓ 20/83 articles
+2026-01-21 09:25:08,458 | text_preprocessor | INFO |   ✓ 40/83 articles
+2026-01-21 09:25:09,363 | text_preprocessor | INFO |   ✓ 60/83 articles
+2026-01-21 09:25:09,524 | text_preprocessor | INFO |   ✓ 80/83 articles
+2026-01-21 09:25:09,550 | text_preprocessor | INFO | ✅ Preprocessing terminé: 83 articles
+2026-01-21 09:25:09,556 | __main__ | INFO | ✅ ÉTAPE 2 COMPLÉTÉE : 83 articles traités
+2026-01-21 09:25:09,562 | __main__ | INFO | 
+===========================================================================
+2026-01-21 09:25:09,564 | __main__ | INFO | ÉTAPE 3 : CLASSIFICATION & EXTRACTION
+2026-01-21 09:25:09,564 | __main__ | INFO | ===========================================================================
+2026-01-21 09:25:09,564 | news_classifier | INFO | 📥 Chargement modèle: facebook/bart-large-mnli...
+2026-01-21 09:25:10,600 | news_classifier | INFO | ✅ Modèle chargé: facebook/bart-large-mnli
+2026-01-21 09:25:11,451 | news_classifier | INFO | ✅ Sentiment classifier chargé
+2026-01-21 09:25:11,455 | news_classifier | INFO | 🤖 Classification 83 articles...
+2026-01-21 09:25:17,584 | news_classifier | INFO |   ✓ 10/83 articles
+2026-01-21 09:25:21,913 | news_classifier | INFO |   ✓ 20/83 articles
+2026-01-21 09:25:26,587 | news_classifier | INFO |   ✓ 30/83 articles
+2026-01-21 09:25:31,628 | news_classifier | INFO |   ✓ 40/83 articles
+2026-01-21 09:25:36,209 | news_classifier | INFO |   ✓ 50/83 articles
+2026-01-21 09:25:41,022 | news_classifier | INFO |   ✓ 60/83 articles
+2026-01-21 09:25:45,740 | news_classifier | INFO |   ✓ 70/83 articles
+2026-01-21 09:25:50,236 | news_classifier | INFO |   ✓ 80/83 articles
+2026-01-21 09:25:51,969 | news_classifier | INFO | 🔍 Duplicate detection (threshold=0.85)...
+2026-01-21 09:25:51,985 | news_classifier | INFO | ✅ Duplicate detection: 0 doublons trouvés
+2026-01-21 09:25:51,985 | news_classifier | INFO | ✅ Classification terminée: 83 articles
+2026-01-21 09:25:51,988 | __main__ | INFO | ✅ ÉTAPE 3 COMPLÉTÉE : 83 articles classifiés
+2026-01-21 09:25:52,225 | __main__ | INFO | 
+===========================================================================
+2026-01-21 09:25:52,227 | __main__ | INFO | ÉTAPE 4 : GÉNÉRATION RAPPORT
+2026-01-21 09:25:52,227 | __main__ | INFO | ===========================================================================
+2026-01-21 09:25:52,227 | report_generator | INFO | 📝 Génération rapport...
+2026-01-21 09:25:52,227 | report_generator | INFO | 📈 Extraction trending topics...
+2026-01-21 09:25:52,227 | report_generator | INFO | ✅ 3 trending topics trouvés
+2026-01-21 09:25:52,227 | report_generator | INFO | ✨ Extraction must-read articles...
+2026-01-21 09:25:52,227 | report_generator | INFO | ✅ 5 must-read articles sélectionnés
+2026-01-21 09:25:52,227 | report_generator | INFO | 📊 Analyse thématique...
+2026-01-21 09:25:52,227 | report_generator | INFO | 😊 Analyse sentiments...
+2026-01-21 09:25:52,227 | report_generator | INFO | ✅ Rapport sauvegardé: output\veille_report.txt
+2026-01-21 09:25:52,227 | __main__ | INFO | ✅ ÉTAPE 4 COMPLÉTÉE : Rapport sauvegardé
+2026-01-21 09:25:52,227 | __main__ | INFO | 
+===========================================================================
+2026-01-21 09:25:52,227 | __main__ | INFO | ✅ PIPELINE COMPLET - SUCCÈS
+2026-01-21 09:25:52,227 | __main__ | INFO | ===========================================================================
+2026-01-21 09:25:52,227 | __main__ | INFO | Rapport généré: output/veille_report.txt
+2026-01-21 09:25:52,227 | __main__ | INFO | Articles traités: 83
+2026-01-21 09:25:52,227 | __main__ | INFO | Temps total: 09:25:52
+2026-01-21 09:25:52,227 | __main__ | INFO | ===========================================================================
+2026-01-21 09:59:57,798 | __main__ | INFO | 🚀 Pipeline Veille NLP - Démarrage
+2026-01-21 09:59:57,799 | __main__ | INFO | Configuration chargée depuis: config.json
+2026-01-21 09:59:57,799 | __main__ | INFO | 
+===========================================================================
+2026-01-21 09:59:57,799 | __main__ | INFO | ÉTAPE 1 : COLLECTE ARTICLES
+2026-01-21 09:59:57,799 | __main__ | INFO | ===========================================================================
+2026-01-21 09:59:57,799 | news_collector | INFO | ======================================================================
+2026-01-21 09:59:57,799 | news_collector | INFO | 📥 COLLECTE ARTICLES - Début
+2026-01-21 09:59:57,799 | news_collector | INFO | ======================================================================
+2026-01-21 09:59:57,801 | news_collector | INFO | 🔄 Collecte HackerNews...
+2026-01-21 09:59:57,801 | news_collector | INFO |   Scraping page 1/3
+2026-01-21 10:00:12,844 | news_collector | INFO |   Scraping page 2/3
+2026-01-21 10:00:30,570 | news_collector | INFO |   Scraping page 3/3
+2026-01-21 10:00:43,772 | news_collector | INFO | ✅ HackerNews: 90 articles collectés
+2026-01-21 10:00:43,772 | news_collector | INFO | 📰 Collecte Towards Data Science...
+2026-01-21 10:00:43,772 | news_collector | INFO |   Scraping TDS page 1/3: https://towardsdatascience.com/latest
+2026-01-21 10:01:20,690 | news_collector | INFO |     Found 31 articles on page 1
+2026-01-21 10:01:22,691 | news_collector | INFO |   Scraping TDS page 2/3: https://towardsdatascience.com/latest/page/2
+2026-01-21 10:01:58,495 | news_collector | INFO |     Found 30 articles on page 2
+2026-01-21 10:02:00,496 | news_collector | INFO |   Scraping TDS page 3/3: https://towardsdatascience.com/latest/page/3
+2026-01-21 10:02:37,698 | news_collector | INFO |     Found 30 articles on page 3
+2026-01-21 10:02:39,700 | news_collector | INFO | ✅ TowardsDataScience: 86 articles collectés
+2026-01-21 10:02:39,700 | news_collector | INFO | ======================================================================
+2026-01-21 10:02:39,700 | news_collector | INFO | 📊 RÉSUMÉ COLLECTE
+2026-01-21 10:02:39,700 | news_collector | INFO |    Total articles : 176
+2026-01-21 10:02:39,700 | news_collector | INFO |    Total erreurs : 0
+2026-01-21 10:02:39,700 | news_collector | INFO | ======================================================================
+2026-01-21 10:02:39,710 | news_collector | INFO | ✅ Articles sauvegardés: data/articles_raw.jsonl
+2026-01-21 10:02:39,715 | news_collector | INFO | ✅ Erreurs sauvegardées: data/collection_errors.json
+2026-01-21 10:02:39,715 | __main__ | INFO | ✅ ÉTAPE 1 COMPLÉTÉE : 176 articles collectés
+2026-01-21 10:02:39,730 | __main__ | INFO | 
+===========================================================================
+2026-01-21 10:02:39,734 | __main__ | INFO | ÉTAPE 2 : PRÉTRAITEMENT NLP
+2026-01-21 10:02:39,734 | __main__ | INFO | ===========================================================================
+2026-01-21 10:02:40,056 | text_preprocessor | INFO | ✅ Modèle spaCy chargé: en_core_web_sm
+2026-01-21 10:02:40,056 | text_preprocessor | INFO | 🔧 Preprocessing 176 articles...
+2026-01-21 10:02:41,215 | text_preprocessor | INFO |   ✓ 20/176 articles
+2026-01-21 10:02:42,437 | text_preprocessor | INFO |   ✓ 40/176 articles
+2026-01-21 10:02:43,170 | text_preprocessor | INFO |   ✓ 60/176 articles
+2026-01-21 10:02:44,133 | text_preprocessor | INFO |   ✓ 80/176 articles
+2026-01-21 10:02:45,140 | text_preprocessor | INFO |   ✓ 100/176 articles
+2026-01-21 10:02:46,142 | text_preprocessor | INFO |   ✓ 120/176 articles
+2026-01-21 10:02:47,009 | text_preprocessor | INFO |   ✓ 140/176 articles
+2026-01-21 10:02:47,974 | text_preprocessor | INFO |   ✓ 160/176 articles
+2026-01-21 10:02:48,608 | text_preprocessor | INFO | ✅ Preprocessing terminé: 176 articles
+2026-01-21 10:02:48,608 | __main__ | INFO | ✅ ÉTAPE 2 COMPLÉTÉE : 176 articles traités
+2026-01-21 10:02:48,615 | __main__ | INFO | 
+===========================================================================
+2026-01-21 10:02:48,615 | __main__ | INFO | ÉTAPE 3 : CLASSIFICATION & EXTRACTION
+2026-01-21 10:02:48,615 | __main__ | INFO | ===========================================================================
+2026-01-21 10:02:48,615 | news_classifier | INFO | 📥 Chargement modèle: facebook/bart-large-mnli...
+2026-01-21 10:02:49,670 | news_classifier | INFO | ✅ Modèle chargé: facebook/bart-large-mnli
+2026-01-21 10:02:50,336 | news_classifier | INFO | ✅ Sentiment classifier chargé
+2026-01-21 10:02:50,336 | news_classifier | INFO | 🤖 Classification 176 articles...
+2026-01-21 10:02:57,333 | news_classifier | INFO |   ✓ 10/176 articles
+2026-01-21 10:03:04,081 | news_classifier | INFO |   ✓ 20/176 articles
+2026-01-21 10:03:10,841 | news_classifier | INFO |   ✓ 30/176 articles
+2026-01-21 10:03:18,701 | news_classifier | INFO |   ✓ 40/176 articles
+2026-01-21 10:03:25,357 | news_classifier | INFO |   ✓ 50/176 articles
+2026-01-21 10:03:32,886 | news_classifier | INFO |   ✓ 60/176 articles
+2026-01-21 10:03:43,158 | news_classifier | INFO |   ✓ 70/176 articles
+2026-01-21 10:03:53,474 | news_classifier | INFO |   ✓ 80/176 articles
+2026-01-21 10:04:01,848 | news_classifier | INFO |   ✓ 90/176 articles
+2026-01-21 10:04:07,589 | news_classifier | INFO |   ✓ 100/176 articles
+2026-01-21 10:04:12,625 | news_classifier | INFO |   ✓ 110/176 articles
+2026-01-21 10:04:17,755 | news_classifier | INFO |   ✓ 120/176 articles
+2026-01-21 10:04:22,795 | news_classifier | INFO |   ✓ 130/176 articles
+2026-01-21 10:04:27,774 | news_classifier | INFO |   ✓ 140/176 articles
+2026-01-21 10:04:32,914 | news_classifier | INFO |   ✓ 150/176 articles
+2026-01-21 10:04:37,857 | news_classifier | INFO |   ✓ 160/176 articles
+2026-01-21 10:04:43,276 | news_classifier | INFO |   ✓ 170/176 articles
+2026-01-21 10:04:46,529 | news_classifier | INFO | 🔍 Duplicate detection (threshold=0.85)...
+2026-01-21 10:04:46,541 | news_classifier | INFO | ✅ Duplicate detection: 21 doublons trouvés
+2026-01-21 10:04:46,541 | news_classifier | INFO | ✅ Classification terminée: 176 articles
+2026-01-21 10:04:46,553 | __main__ | INFO | ✅ ÉTAPE 3 COMPLÉTÉE : 176 articles classifiés
+2026-01-21 10:04:46,841 | __main__ | INFO | 
+===========================================================================
+2026-01-21 10:04:46,841 | __main__ | INFO | ÉTAPE 4 : GÉNÉRATION RAPPORT
+2026-01-21 10:04:46,841 | __main__ | INFO | ===========================================================================
+2026-01-21 10:04:46,841 | report_generator | INFO | 📝 Génération rapport...
+2026-01-21 10:04:46,843 | report_generator | INFO | 📈 Extraction trending topics...
+2026-01-21 10:04:46,843 | report_generator | INFO | ✅ 3 trending topics trouvés
+2026-01-21 10:04:46,843 | report_generator | INFO | ✨ Extraction must-read articles...
+2026-01-21 10:04:46,844 | report_generator | INFO | ✅ 5 must-read articles sélectionnés
+2026-01-21 10:04:46,844 | report_generator | INFO | 📊 Analyse thématique...
+2026-01-21 10:04:46,845 | report_generator | INFO | 😊 Analyse sentiments...
+2026-01-21 10:04:46,845 | report_generator | INFO | ✅ Rapport sauvegardé: output\veille_report.txt
+2026-01-21 10:04:46,845 | __main__ | INFO | ✅ ÉTAPE 4 COMPLÉTÉE : Rapport sauvegardé
+2026-01-21 10:04:46,845 | __main__ | INFO | 
+===========================================================================
+2026-01-21 10:04:46,845 | __main__ | INFO | ✅ PIPELINE COMPLET - SUCCÈS
+2026-01-21 10:04:46,851 | __main__ | INFO | ===========================================================================
+2026-01-21 10:04:46,851 | __main__ | INFO | Rapport généré: output/veille_report.txt
+2026-01-21 10:04:46,851 | __main__ | INFO | Articles traités: 176
+2026-01-21 10:04:46,851 | __main__ | INFO | Temps total: 10:04:46
+2026-01-21 10:04:46,851 | __main__ | INFO | ===========================================================================
+2026-01-21 10:21:27,491 | __main__ | INFO | 🚀 Pipeline Veille NLP - Démarrage
+2026-01-21 10:21:27,491 | __main__ | INFO | Configuration chargée depuis: config.json
+2026-01-21 10:21:27,491 | __main__ | INFO | 
+===========================================================================
+2026-01-21 10:21:27,491 | __main__ | INFO | ÉTAPE 1 : COLLECTE ARTICLES
+2026-01-21 10:21:27,491 | __main__ | INFO | ===========================================================================
+2026-01-21 10:21:27,491 | news_collector | INFO | ======================================================================
+2026-01-21 10:21:27,491 | news_collector | INFO | 📥 COLLECTE ARTICLES - Début
+2026-01-21 10:21:27,491 | news_collector | INFO | ======================================================================
+2026-01-21 10:21:27,491 | news_collector | INFO | 🔄 Collecte HackerNews...
+2026-01-21 10:21:27,491 | news_collector | INFO |   Scraping page 1/2
+2026-01-21 10:21:42,740 | news_collector | INFO |   Scraping page 2/2
+2026-01-21 10:21:56,899 | news_collector | INFO | ✅ HackerNews: 60 articles collectés
+2026-01-21 10:21:56,899 | news_collector | INFO | 📰 Collecte Towards Data Science...
+2026-01-21 10:21:56,899 | news_collector | INFO |   Scraping TDS page 1/5: https://towardsdatascience.com/latest
+2026-01-21 10:22:11,043 | news_collector | INFO |     Found 21 articles on page 1
+2026-01-21 10:22:13,045 | news_collector | INFO |   Scraping TDS page 2/5: https://towardsdatascience.com/latest/page/2
+2026-01-21 10:22:26,047 | news_collector | INFO |     Found 21 articles on page 2
+2026-01-21 10:22:28,049 | news_collector | INFO |   Scraping TDS page 3/5: https://towardsdatascience.com/latest/page/3
+2026-01-21 10:22:43,156 | news_collector | INFO |     Found 20 articles on page 3
+2026-01-21 10:22:45,157 | news_collector | INFO |   Scraping TDS page 4/5: https://towardsdatascience.com/latest/page/4
+2026-01-21 10:23:00,768 | news_collector | INFO |     Found 21 articles on page 4
+2026-01-21 10:23:02,770 | news_collector | INFO |   Scraping TDS page 5/5: https://towardsdatascience.com/latest/page/5
+2026-01-21 10:23:19,226 | news_collector | INFO |     Found 21 articles on page 5
+2026-01-21 10:23:21,228 | news_collector | INFO | ✅ TowardsDataScience: 54 articles collectés
+2026-01-21 10:23:21,229 | news_collector | INFO | ======================================================================
+2026-01-21 10:23:21,229 | news_collector | INFO | 📊 RÉSUMÉ COLLECTE
+2026-01-21 10:23:21,232 | news_collector | INFO |    Total articles : 114
+2026-01-21 10:23:21,232 | news_collector | INFO |    Total erreurs : 0
+2026-01-21 10:23:21,232 | news_collector | INFO | ======================================================================
+2026-01-21 10:23:21,240 | news_collector | INFO | ✅ Articles sauvegardés: data/articles_raw.jsonl
+2026-01-21 10:23:21,240 | news_collector | INFO | ✅ Erreurs sauvegardées: data/collection_errors.json
+2026-01-21 10:23:21,242 | __main__ | INFO | ✅ ÉTAPE 1 COMPLÉTÉE : 114 articles collectés
+2026-01-21 10:23:21,262 | __main__ | INFO | 
+===========================================================================
+2026-01-21 10:23:21,262 | __main__ | INFO | ÉTAPE 2 : PRÉTRAITEMENT NLP
+2026-01-21 10:23:21,262 | __main__ | INFO | ===========================================================================
+2026-01-21 10:23:21,548 | text_preprocessor | INFO | ✅ Modèle spaCy chargé: en_core_web_sm
+2026-01-21 10:23:21,548 | text_preprocessor | INFO | 🔧 Preprocessing 114 articles...
+2026-01-21 10:23:22,825 | text_preprocessor | INFO |   ✓ 20/114 articles
+2026-01-21 10:23:24,130 | text_preprocessor | INFO |   ✓ 40/114 articles
+2026-01-21 10:23:24,818 | text_preprocessor | INFO |   ✓ 60/114 articles
+2026-01-21 10:23:26,313 | text_preprocessor | INFO |   ✓ 80/114 articles
+2026-01-21 10:23:27,796 | text_preprocessor | INFO |   ✓ 100/114 articles
+2026-01-21 10:23:28,729 | text_preprocessor | INFO | ✅ Preprocessing terminé: 114 articles
+2026-01-21 10:23:28,745 | __main__ | INFO | ✅ ÉTAPE 2 COMPLÉTÉE : 114 articles traités
+2026-01-21 10:23:28,749 | __main__ | INFO | 
+===========================================================================
+2026-01-21 10:23:28,749 | __main__ | INFO | ÉTAPE 3 : CLASSIFICATION & EXTRACTION
+2026-01-21 10:23:28,752 | __main__ | INFO | ===========================================================================
+2026-01-21 10:23:28,752 | news_classifier | INFO | 📥 Chargement modèle: facebook/bart-large-mnli...
+2026-01-21 10:23:29,459 | news_classifier | INFO | ✅ Modèle chargé: facebook/bart-large-mnli
+2026-01-21 10:23:30,085 | news_classifier | INFO | ✅ Sentiment classifier chargé
+2026-01-21 10:23:30,085 | news_classifier | INFO | 🤖 Classification 114 articles...
+2026-01-21 10:23:37,910 | news_classifier | INFO |   ✓ 10/114 articles
+2026-01-21 10:23:45,024 | news_classifier | INFO |   ✓ 20/114 articles
+2026-01-21 10:23:52,017 | news_classifier | INFO |   ✓ 30/114 articles
+2026-01-21 10:23:58,558 | news_classifier | INFO |   ✓ 40/114 articles
+2026-01-21 10:24:05,514 | news_classifier | INFO |   ✓ 50/114 articles
+2026-01-21 10:24:12,597 | news_classifier | INFO |   ✓ 60/114 articles
+2026-01-21 10:24:17,401 | news_classifier | INFO |   ✓ 70/114 articles
+2026-01-21 10:24:23,011 | news_classifier | INFO |   ✓ 80/114 articles
+2026-01-21 10:24:27,808 | news_classifier | INFO |   ✓ 90/114 articles
+2026-01-21 10:24:32,227 | news_classifier | INFO |   ✓ 100/114 articles
+2026-01-21 10:24:37,329 | news_classifier | INFO |   ✓ 110/114 articles
+2026-01-21 10:24:39,611 | news_classifier | INFO | 🔍 Duplicate detection (threshold=0.85)...
+2026-01-21 10:24:39,620 | news_classifier | INFO | ✅ Duplicate detection: 4 doublons trouvés
+2026-01-21 10:24:39,620 | news_classifier | INFO | ✅ Classification terminée: 114 articles
+2026-01-21 10:24:39,633 | __main__ | INFO | ✅ ÉTAPE 3 COMPLÉTÉE : 114 articles classifiés
+2026-01-21 10:24:39,935 | __main__ | INFO | 
+===========================================================================
+2026-01-21 10:24:39,935 | __main__ | INFO | ÉTAPE 4 : GÉNÉRATION RAPPORT
+2026-01-21 10:24:39,935 | __main__ | INFO | ===========================================================================
+2026-01-21 10:24:39,935 | report_generator | INFO | 📝 Génération rapport...
+2026-01-21 10:24:39,935 | report_generator | INFO | 📈 Extraction trending topics...
+2026-01-21 10:24:39,935 | report_generator | INFO | ✅ 3 trending topics trouvés
+2026-01-21 10:24:39,935 | report_generator | INFO | ✨ Extraction must-read articles...
+2026-01-21 10:24:39,935 | report_generator | INFO | ✅ 5 must-read articles sélectionnés
+2026-01-21 10:24:39,935 | report_generator | INFO | 📊 Analyse thématique...
+2026-01-21 10:24:39,943 | report_generator | INFO | 😊 Analyse sentiments...
+2026-01-21 10:24:39,943 | report_generator | INFO | ✅ Rapport sauvegardé: output\veille_report.txt
+2026-01-21 10:24:39,943 | __main__ | INFO | ✅ ÉTAPE 4 COMPLÉTÉE : Rapport sauvegardé
+2026-01-21 10:24:39,943 | __main__ | INFO | 
+===========================================================================
+2026-01-21 10:24:39,943 | __main__ | INFO | ✅ PIPELINE COMPLET - SUCCÈS
+2026-01-21 10:24:39,943 | __main__ | INFO | ===========================================================================
+2026-01-21 10:24:39,943 | __main__ | INFO | Rapport généré: output/veille_report.txt
+2026-01-21 10:24:39,943 | __main__ | INFO | Articles traités: 114
+2026-01-21 10:24:39,943 | __main__ | INFO | Temps total: 10:24:39
+2026-01-21 10:24:39,943 | __main__ | INFO | ===========================================================================

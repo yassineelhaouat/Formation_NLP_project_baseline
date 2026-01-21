@@ -99,12 +99,14 @@ class NewsClassifier:
     # TASK 1 : TOPIC CLASSIFICATION
     # ═══════════════════════════════════════════════════════════════════════
     
-    def classify_topic(self, text: str) -> Dict:
+    def classify_topic(self, text: str, source: str = None) -> Dict:
         """
-        Classifier article par niveau : Débutant/Intermédiaire/Avancé
+        Classifier article par niveau ou catégorie selon la source
         
         Args:
             text: Contenu article à classifier
+            source: Source de l'article (HackerNews, TowardsDataScience, etc.)
+                    Permet d'utiliser des labels différents par source
         
         Returns:
             {
@@ -121,8 +123,16 @@ class NewsClassifier:
             }
         
         try:
-            labels = self.config.get('classification', {}).get('labels', 
+            # Get source-specific labels or default labels
+            source_labels = self.config.get('classification', {}).get('source_labels', {})
+            default_labels = self.config.get('classification', {}).get('default_labels', 
                                                                ['Beginner', 'Intermediate', 'Advanced'])
+            
+            # Use source-specific labels if available
+            if source and source in source_labels:
+                labels = source_labels[source]
+            else:
+                labels = default_labels
             
             # Limiter texte à 512 tokens (limite BERT)
             text_truncated = ' '.join(text.split()[:400])
@@ -292,9 +302,10 @@ class NewsClassifier:
             try:
                 # Utiliser contenu normalisé ou titre
                 text = article.get('normalized_content', article.get('content', article.get('title', '')))
+                source = article.get('source', None)
                 
-                # Task 1: Topic classification
-                topic_result = self.classify_topic(text)
+                # Task 1: Topic classification (with source-specific labels)
+                topic_result = self.classify_topic(text, source=source)
                 article['topic_prediction'] = topic_result['predicted_label']
                 article['topic_confidence'] = topic_result['confidence']
                 article['topic_scores'] = topic_result['all_scores']

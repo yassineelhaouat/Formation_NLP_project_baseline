@@ -263,10 +263,25 @@ class ReportGenerator:
             count = keyword_data['count']
             report.append(f"  • {keyword:20s} ({count} mentions)")
         
-        report.append(f"\nDistribution par Niveau:")
-        for topic, count in sorted(thematic['topic_distribution'].items(), key=lambda x: x[1], reverse=True):
-            pct = (count / max(num_unique, 1)) * 100
-            report.append(f"  • {topic:20s}: {count:3d} ({pct:5.1f}%)")
+        # Distribution par Source (séparé car labels différents)
+        report.append(f"\n📈 DISTRIBUTION PAR SOURCE:")
+        sources = {}
+        for a in articles:
+            if not a.get('is_duplicate', False):
+                src = a.get('source', 'Unknown')
+                if src not in sources:
+                    sources[src] = []
+                sources[src].append(a)
+        
+        for source, source_articles in sources.items():
+            report.append(f"\n  🔹 {source} ({len(source_articles)} articles):")
+            topic_dist = {}
+            for a in source_articles:
+                topic = a.get('topic_prediction', 'Unknown')
+                topic_dist[topic] = topic_dist.get(topic, 0) + 1
+            for topic, count in sorted(topic_dist.items(), key=lambda x: x[1], reverse=True):
+                pct = (count / len(source_articles)) * 100
+                report.append(f"     • {topic:15s}: {count:3d} ({pct:5.1f}%)")
         report.append("")
         
         # SENTIMENT ANALYSIS

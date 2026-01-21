@@ -101,8 +101,18 @@ class TextPreprocessor:
         # 1. Supprimer tags HTML
         text = re.sub(r'<[^>]+>', '', text)
         
-        # 2. Remplacer URLs par token
-        text = re.sub(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', '<URL>', text)
+        # 2. IMPROVED URL REMOVAL - Multiple patterns
+        # Standard URLs
+        text = re.sub(r'https?://[^\s<>"{}|\\^`\[\]]+', '', text)
+        # URLs without protocol
+        text = re.sub(r'www\.[^\s<>"{}|\\^`\[\]]+', '', text)
+        # Domain-like patterns (file.ext, domain.com/path)
+        text = re.sub(r'\b[\w\-]+\.(com|org|net|io|dev|co|edu|gov|html|htm|php|asp|jsp)[/\w\-\.]*\b', '', text)
+        # Email addresses
+        text = re.sub(r'\b[\w\.\-]+@[\w\.\-]+\.\w+\b', '', text)
+        # File paths (Windows and Unix)
+        text = re.sub(r'[A-Za-z]:\\[\w\\\-\.]+', '', text)  # C:\path\to\file
+        text = re.sub(r'/[\w/\-\.]+\.\w+', '', text)  # /path/to/file.ext
         
         # 3. Remplacer mentions Twitter
         text = re.sub(r'@\w+', '<MENTION>', text)
@@ -110,7 +120,11 @@ class TextPreprocessor:
         # 4. Remplacer hashtags
         text = re.sub(r'#\w+', '<HASHTAG>', text)
         
-        # 5. Normaliser whitespace
+        # 5. Remove code artifacts
+        text = re.sub(r'\b(function|const|var|let|import|export|class|def|return)\s*[\(\{]?', ' ', text)
+        text = re.sub(r'[{}\[\]();]', ' ', text)  # Remove brackets
+        
+        # 6. Normaliser whitespace
         text = re.sub(r'\s+', ' ', text)
         
         # 6. Conversion minuscules (MAIS: conserver acronymes?)

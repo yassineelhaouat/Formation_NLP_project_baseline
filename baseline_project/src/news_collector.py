@@ -204,14 +204,154 @@ class NewsCollector:
             logger.error(f"❌ HackerNews collection failed: {str(e)}")
             return []
 
+    # ═══════════════════════════════════════════════════════════════════════
+    # TOWARDS DATA SCIENCE (HTML SCRAPING)
+    # ═══════════════════════════════════════════════════════════════════════
+    
+    def collect_from_towards_data_science(self) -> List[Article]:
+        """
+        Scrape Towards Data Science /latest avec pagination
+        
+        URLs:
+        - https://towardsdatascience.com/latest
+        - https://towardsdatascience.com/latest/page/2
+        - etc.
+        """
+        logger.info("📰 Collecte Towards Data Science...")
+        articles = []
+        
+        try:
+            config = self.config.get('collection', {}).get('towards_data_science', {})
+            base_url = config.get('url', 'https://towardsdatascience.com/latest')
+            num_pages = config.get('num_pages', 2)
+            timeout = config.get('timeout', 15)
+            delay = config.get('delay_between_requests', 2)
+            fetch_content = config.get('fetch_content', True)
+            
+            for page_num in range(1, num_pages + 1):
+                if page_num == 1:
+                    page_url = base_url
+                else:
+                    page_url = f"{base_url}/page/{page_num}"
+                
+                logger.info(f"  Scraping TDS page {page_num}/{num_pages}: {page_url}")
+                
+                try:
+                    response = self.session.get(page_url, timeout=timeout)
+                    response.raise_for_status()
+                    
+                    soup = BeautifulSoup(response.content, 'html.parser')
+                    
+                    # TDS uses article cards - find all article links
+                    # Multiple possible selectors based on their structure
+                    article_links = soup.find_all('a', href=True)
+                    
+                    seen_urls = set()
+                    
+                    for link in article_links:
+                        try:
+                            href = link.get('href', '')
+                            
+                            # Filter for article URLs (they contain the article slug)
+                            # TDS articles: /title-of-article-abc123def456
+                            if not href.startswith('https://towardsdatascience.com/'):
+                                continue
+                            
+                            # Skip non-article pages (author pages, tags, etc.)
+                            skip_patterns = ['/latest', '/tag/', '/search', '/about', 
+                                           '/archive', '/login', '/signup', '/@', 
+                                           '/membership', '/plans', '/topics',
+                                           '/author/', '/tagged/', '/collection/']
+                            if any(pattern in href for pattern in skip_patterns):
+                                continue
+                            
+                            # Skip if already seen
+                            if href in seen_urls:
+                                continue
+                            seen_urls.add(href)
+                            
+                            # Get title from link text or nested elements
+                            title = link.get_text(strip=True)
+                            if not title or len(title) < 10:
+                                # Try to find h2/h3 child
+                                h_tag = link.find(['h1', 'h2', 'h3'])
+                                if h_tag:
+                                    title = h_tag.get_text(strip=True)
+                            
+                            if not title or len(title) < 10:
+                                continue
+                            
+                            # Skip if title looks like navigation or author name (short, no spaces)
+                            if title.lower() in ['read more', 'continue reading', 'see more']:
+                                continue
+                            
+                            # Skip titles that look like author names (2-3 words, capitalized)
+                            words = title.split()
+                            if len(words) <= 3 and all(w[0].isupper() for w in words if w):
+                                continue
+                            
+                            # Fetch content if enabled
+                            content = title
+                            if fetch_content:
+                                logger.debug(f"    Fetching: {title[:40]}...")
+                                fetched = self.fetch_article_content(href, timeout=10)
+                                if fetched:
+                                    content = f"{title}. {fetched}"
+                                time.sleep(delay * 0.5)  # Shorter delay for content fetch
+                            
+                            article = Article(
+                                title=title,
+                                url=href,
+                                content=content,
+                                source='TowardsDataScience',
+                                date=datetime.now().isoformat(),
+                                author=None
+                            )
+                            
+                            articles.append(article)
+                            logger.debug(f"    ✓ {title[:50]}...")
+                        
+                        except Exception as e:
+                            self.errors.append({
+                                'source': 'TowardsDataScience',
+                                'error': str(e),
+                                'timestamp': datetime.now().isoformat()
+                            })
+                            continue
+                    
+                    logger.info(f"    Found {len(seen_urls)} articles on page {page_num}")
+                    time.sleep(delay)
+                
+                except requests.RequestException as e:
+                    self.errors.append({
+                        'source': 'TowardsDataScience',
+                        'page': page_num,
+                        'error': f"Request failed: {str(e)}",
+                        'timestamp': datetime.now().isoformat()
+                    })
+                    logger.warning(f"  ✗ Erreur page {page_num}: {str(e)}")
+            
+            logger.info(f"✅ TowardsDataScience: {len(articles)} articles collectés")
+            return articles
+        
+        except Exception as e:
+            logger.error(f"❌ TowardsDataScience collection failed: {str(e)}")
+            return []
+
     
     # ═══════════════════════════════════════════════════════════════════════
     # RSS FEEDS
     # ═══════════════════════════════════════════════════════════════════════
     
-    def collect_from_rss_feed(self, feed_url: str) -> List[Article]:
+    def collect_from_rss_feed(self, feed_url: str, max_articles: int = None, fetch_content: bool = False, delay: float = 1.0) -> List[Article]:
         """
         Parse RSS feed
+        
+        Args:
+            feed_url: URL du flux RSS
+            max_articles: Nombre max d'articles à collecter (None = tous)
+            fetch_content: Si True, récupère le contenu complet de l'article
+            delay: Délai entre requêtes (si fetch_content=True)
         
         Structure RSS standard :
         <rss>
@@ -227,6 +367,8 @@ class NewsCollector:
         </rss>
         """
         logger.info(f"🔄 Collecte RSS: {feed_url}")
+        if max_articles:
+            logger.info(f"   Max articles: {max_articles}")
         articles = []
         
         try:
@@ -235,7 +377,11 @@ class NewsCollector:
             if feed.bozo:
                 logger.warning(f"  ⚠️ RSS parsing warning: {feed.bozo_exception}")
             
-            for entry in feed.entries:
+            entries_to_process = feed.entries
+            if max_articles:
+                entries_to_process = feed.entries[:max_articles]
+            
+            for i, entry in enumerate(entries_to_process):
                 try:
                     title = entry.get('title', 'No Title')
                     link = entry.get('link', '')
@@ -252,10 +398,19 @@ class NewsCollector:
                     if 'author' in entry:
                         author = entry.author
                     
+                    # Fetch full content if enabled
+                    content = summary[:200]  # Default: premiers 200 chars du summary
+                    if fetch_content and link:
+                        logger.info(f"   [{i+1}/{len(entries_to_process)}] Fetching: {title[:40]}...")
+                        full_content = self.fetch_article_content(link)
+                        if full_content:
+                            content = full_content
+                        time.sleep(delay)  # Respecter rate limiting
+                    
                     article = Article(
                         title=title,
                         url=link,
-                        content=summary[:200],  # Premiers 200 chars du summary
+                        content=content,
                         source='RSS',
                         date=date,
                         author=author
@@ -316,13 +471,17 @@ class NewsCollector:
         if self.config.get('collection', {}).get('hacker_news', {}).get('enabled', True):
             self.articles.extend(self.collect_from_hacker_news())
         
-        # RSS
-        if self.config.get('collection', {}).get('pycoders_rss', {}).get('enabled', True):
+        # Towards Data Science (HTML scraping)
+        if self.config.get('collection', {}).get('towards_data_science', {}).get('enabled', False):
+            self.articles.extend(self.collect_from_towards_data_science())
+        
+        # RSS - PyCoder's Weekly (disabled by default)
+        if self.config.get('collection', {}).get('pycoders_rss', {}).get('enabled', False):
             rss_url = self.config['collection']['pycoders_rss'].get('url')
             if rss_url:
                 self.articles.extend(self.collect_from_rss_feed(rss_url))
         
-        # YouTube
+        # YouTube (optional)
         if self.config.get('collection', {}).get('youtube', {}).get('enabled', False):
             self.articles.extend(self.collect_from_youtube())
         
