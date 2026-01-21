@@ -1,3 +1,6 @@
 /.idea
 venv
-_pycache_
+src/__pycache__
+output
+baseline_project/src/__pycache__
+CHANGELOG.txt
