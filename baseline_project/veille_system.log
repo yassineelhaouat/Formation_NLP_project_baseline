@@ -976,3 +976,210 @@ If this is a private repository, make sure to pass a token having permission to 
 2026-01-21 10:24:39,943 | __main__ | INFO | Articles traités: 114
 2026-01-21 10:24:39,943 | __main__ | INFO | Temps total: 10:24:39
 2026-01-21 10:24:39,943 | __main__ | INFO | ===========================================================================
+2026-01-21 11:39:12,950 | __main__ | INFO | 🚀 Pipeline Veille NLP - Démarrage
+2026-01-21 11:39:12,950 | __main__ | INFO | Configuration chargée depuis: config.json
+2026-01-21 11:39:12,950 | __main__ | INFO | 
+===========================================================================
+2026-01-21 11:39:12,950 | __main__ | INFO | ÉTAPE 1 : COLLECTE ARTICLES
+2026-01-21 11:39:12,950 | __main__ | INFO | ===========================================================================
+2026-01-21 11:39:12,950 | news_collector | INFO | ======================================================================
+2026-01-21 11:39:12,950 | news_collector | INFO | 📥 COLLECTE ARTICLES - Début
+2026-01-21 11:39:12,950 | news_collector | INFO | ======================================================================
+2026-01-21 11:39:12,950 | news_collector | INFO | 🔄 Collecte HackerNews...
+2026-01-21 11:39:12,950 | news_collector | INFO |   Scraping page 1/5
+2026-01-21 11:39:29,446 | news_collector | INFO |   Scraping page 2/5
+2026-01-21 11:39:46,312 | news_collector | INFO |   Scraping page 3/5
+2026-01-21 11:39:58,970 | news_collector | INFO |   Scraping page 4/5
+2026-01-21 11:40:12,507 | news_collector | INFO |   Scraping page 5/5
+2026-01-21 11:40:30,954 | news_collector | INFO | ✅ HackerNews: 150 articles collectés
+2026-01-21 11:40:30,956 | news_collector | INFO | 📰 Collecte Towards Data Science...
+2026-01-21 11:40:30,956 | news_collector | INFO |   Scraping TDS page 1/5: https://towardsdatascience.com/latest
+2026-01-21 11:40:46,380 | news_collector | INFO |     Found 21 articles on page 1
+2026-01-21 11:40:48,381 | news_collector | INFO |   Scraping TDS page 2/5: https://towardsdatascience.com/latest/page/2
+2026-01-21 11:41:01,642 | news_collector | INFO |     Found 21 articles on page 2
+2026-01-21 11:41:03,643 | news_collector | INFO |   Scraping TDS page 3/5: https://towardsdatascience.com/latest/page/3
+2026-01-21 11:41:19,101 | news_collector | INFO |     Found 20 articles on page 3
+2026-01-21 11:41:21,102 | news_collector | INFO |   Scraping TDS page 4/5: https://towardsdatascience.com/latest/page/4
+2026-01-21 11:41:37,153 | news_collector | INFO |     Found 21 articles on page 4
+2026-01-21 11:41:39,155 | news_collector | INFO |   Scraping TDS page 5/5: https://towardsdatascience.com/latest/page/5
+2026-01-21 11:41:55,785 | news_collector | INFO |     Found 21 articles on page 5
+2026-01-21 11:41:57,787 | news_collector | INFO | ✅ TowardsDataScience: 54 articles collectés
+2026-01-21 11:41:57,787 | news_collector | INFO | ======================================================================
+2026-01-21 11:41:57,787 | news_collector | INFO | 📊 RÉSUMÉ COLLECTE
+2026-01-21 11:41:57,787 | news_collector | INFO |    Total articles : 204
+2026-01-21 11:41:57,787 | news_collector | INFO |    Total erreurs : 0
+2026-01-21 11:41:57,787 | news_collector | INFO | ======================================================================
+2026-01-21 11:41:57,796 | news_collector | INFO | ✅ Articles sauvegardés: data/articles_raw.jsonl
+2026-01-21 11:41:57,796 | news_collector | INFO | ✅ Erreurs sauvegardées: data/collection_errors.json
+2026-01-21 11:41:57,796 | __main__ | INFO | ✅ ÉTAPE 1 COMPLÉTÉE : 204 articles collectés
+2026-01-21 11:41:57,826 | __main__ | INFO | 
+===========================================================================
+2026-01-21 11:41:57,826 | __main__ | INFO | ÉTAPE 2 : PRÉTRAITEMENT NLP
+2026-01-21 11:41:57,826 | __main__ | INFO | ===========================================================================
+2026-01-21 11:41:57,835 | text_preprocessor | ERROR | ❌ Modèle en_core_web_sm non trouvé. Installez avec :
+2026-01-21 11:41:57,835 | text_preprocessor | ERROR |    python -m spacy download en_core_web_sm
+2026-01-21 11:41:57,837 | __main__ | ERROR | ❌ ERREUR ÉTAPE 2 : [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2026-01-21 11:41:57,837 | __main__ | ERROR | 
+❌ ERREUR FATALE : [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2026-01-21 11:41:57,839 | __main__ | ERROR | Traceback:
+Traceback (most recent call last):
+  File "C:\Users\yassi\Desktop\Hexa\NLP\Traitement des Langages Naturels\Formation_NLP_project_baseline\baseline_project\main.py", line 217, in main
+    processed_articles = step_preprocess(articles, config, logger)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yassi\Desktop\Hexa\NLP\Traitement des Langages Naturels\Formation_NLP_project_baseline\baseline_project\main.py", line 102, in step_preprocess
+    preprocessor = TextPreprocessor(config)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yassi\Desktop\Hexa\NLP\Traitement des Langages Naturels\Formation_NLP_project_baseline\baseline_project\src\text_preprocessor.py", line 70, in __init__
+    self.nlp = spacy.load(model_name)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yassi\AppData\Local\Programs\Python\Python312\Lib\site-packages\spacy\__init__.py", line 52, in load
+    return util.load_model(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\yassi\AppData\Local\Programs\Python\Python312\Lib\site-packages\spacy\util.py", line 531, in load_model
+    raise IOError(Errors.E050.format(name=name))
+OSError: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2026-01-21 11:43:34,396 | __main__ | INFO | 🚀 Pipeline Veille NLP - Démarrage
+2026-01-21 11:43:34,400 | __main__ | INFO | Configuration chargée depuis: config.json
+2026-01-21 11:43:34,400 | __main__ | INFO | 
+===========================================================================
+2026-01-21 11:43:34,401 | __main__ | INFO | ÉTAPE 1 : COLLECTE ARTICLES
+2026-01-21 11:43:34,401 | __main__ | INFO | ===========================================================================
+2026-01-21 11:43:34,401 | news_collector | INFO | ======================================================================
+2026-01-21 11:43:34,401 | news_collector | INFO | 📥 COLLECTE ARTICLES - Début
+2026-01-21 11:43:34,401 | news_collector | INFO | ======================================================================
+2026-01-21 11:43:34,401 | news_collector | INFO | 🔄 Collecte HackerNews...
+2026-01-21 11:43:34,401 | news_collector | INFO |   Scraping page 1/2
+2026-01-21 11:43:50,360 | news_collector | INFO |   Scraping page 2/2
+2026-01-21 11:44:04,931 | news_collector | INFO | ✅ HackerNews: 60 articles collectés
+2026-01-21 11:44:04,931 | news_collector | INFO | 📰 Collecte Towards Data Science...
+2026-01-21 11:44:04,931 | news_collector | INFO |   Scraping TDS page 1/2: https://towardsdatascience.com/latest
+2026-01-21 11:44:19,680 | news_collector | INFO |     Found 21 articles on page 1
+2026-01-21 11:44:21,682 | news_collector | INFO |   Scraping TDS page 2/2: https://towardsdatascience.com/latest/page/2
+2026-01-21 11:44:34,730 | news_collector | INFO |     Found 21 articles on page 2
+2026-01-21 11:44:36,732 | news_collector | INFO | ✅ TowardsDataScience: 21 articles collectés
+2026-01-21 11:44:36,732 | news_collector | INFO | ======================================================================
+2026-01-21 11:44:36,732 | news_collector | INFO | 📊 RÉSUMÉ COLLECTE
+2026-01-21 11:44:36,732 | news_collector | INFO |    Total articles : 81
+2026-01-21 11:44:36,732 | news_collector | INFO |    Total erreurs : 0
+2026-01-21 11:44:36,732 | news_collector | INFO | ======================================================================
+2026-01-21 11:44:36,732 | news_collector | INFO | ✅ Articles sauvegardés: data/articles_raw.jsonl
+2026-01-21 11:44:36,741 | news_collector | INFO | ✅ Erreurs sauvegardées: data/collection_errors.json
+2026-01-21 11:44:36,741 | __main__ | INFO | ✅ ÉTAPE 1 COMPLÉTÉE : 81 articles collectés
+2026-01-21 11:44:36,758 | __main__ | INFO | 
+===========================================================================
+2026-01-21 11:44:36,760 | __main__ | INFO | ÉTAPE 2 : PRÉTRAITEMENT NLP
+2026-01-21 11:44:36,760 | __main__ | INFO | ===========================================================================
+2026-01-21 11:44:36,760 | text_preprocessor | ERROR | ❌ Modèle en_core_web_sm non trouvé. Installez avec :
+2026-01-21 11:44:36,760 | text_preprocessor | ERROR |    python -m spacy download en_core_web_sm
+2026-01-21 11:44:36,762 | __main__ | ERROR | ❌ ERREUR ÉTAPE 2 : [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2026-01-21 11:44:36,762 | __main__ | ERROR | 
+❌ ERREUR FATALE : [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2026-01-21 11:44:36,763 | __main__ | ERROR | Traceback:
+Traceback (most recent call last):
+  File "C:\Users\yassi\Desktop\Hexa\NLP\Traitement des Langages Naturels\Formation_NLP_project_baseline\baseline_project\main.py", line 217, in main
+    processed_articles = step_preprocess(articles, config, logger)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yassi\Desktop\Hexa\NLP\Traitement des Langages Naturels\Formation_NLP_project_baseline\baseline_project\main.py", line 102, in step_preprocess
+    preprocessor = TextPreprocessor(config)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yassi\Desktop\Hexa\NLP\Traitement des Langages Naturels\Formation_NLP_project_baseline\baseline_project\src\text_preprocessor.py", line 70, in __init__
+    self.nlp = spacy.load(model_name)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yassi\AppData\Local\Programs\Python\Python312\Lib\site-packages\spacy\__init__.py", line 52, in load
+    return util.load_model(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\yassi\AppData\Local\Programs\Python\Python312\Lib\site-packages\spacy\util.py", line 531, in load_model
+    raise IOError(Errors.E050.format(name=name))
+OSError: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2026-01-21 11:53:03,558 | __main__ | INFO | 🚀 Pipeline Veille NLP - Démarrage
+2026-01-21 11:53:03,558 | __main__ | INFO | Configuration chargée depuis: config.json
+2026-01-21 11:53:03,558 | __main__ | INFO | 
+===========================================================================
+2026-01-21 11:53:03,559 | __main__ | INFO | ÉTAPE 1 : COLLECTE ARTICLES
+2026-01-21 11:53:03,560 | __main__ | INFO | ===========================================================================
+2026-01-21 11:53:03,560 | news_collector | INFO | ======================================================================
+2026-01-21 11:53:03,560 | news_collector | INFO | 📥 COLLECTE ARTICLES - Début
+2026-01-21 11:53:03,560 | news_collector | INFO | ======================================================================
+2026-01-21 11:53:03,560 | news_collector | INFO | 🔄 Collecte HackerNews...
+2026-01-21 11:53:03,560 | news_collector | INFO |   Scraping page 1/2
+2026-01-21 11:53:19,937 | news_collector | INFO |   Scraping page 2/2
+2026-01-21 11:55:08,692 | __main__ | INFO | 🚀 Pipeline Veille NLP - Démarrage
+2026-01-21 11:55:08,692 | __main__ | INFO | Configuration chargée depuis: config.json
+2026-01-21 11:55:08,692 | __main__ | INFO | 
+===========================================================================
+2026-01-21 11:55:08,692 | __main__ | INFO | ÉTAPE 1 : COLLECTE ARTICLES
+2026-01-21 11:55:08,692 | __main__ | INFO | ===========================================================================
+2026-01-21 11:55:08,700 | news_collector | INFO | ======================================================================
+2026-01-21 11:55:08,700 | news_collector | INFO | 📥 COLLECTE ARTICLES - Début
+2026-01-21 11:55:08,701 | news_collector | INFO | ======================================================================
+2026-01-21 11:55:08,701 | news_collector | INFO | 🔄 Collecte HackerNews...
+2026-01-21 11:55:08,701 | news_collector | INFO |   Scraping page 1/2
+2026-01-21 11:55:24,487 | news_collector | INFO |   Scraping page 2/2
+2026-01-21 11:55:38,671 | news_collector | INFO | ✅ HackerNews: 60 articles collectés
+2026-01-21 11:55:38,671 | news_collector | INFO | 📰 Collecte Towards Data Science...
+2026-01-21 11:55:38,671 | news_collector | INFO |   Scraping TDS page 1/2: https://towardsdatascience.com/latest
+2026-01-21 11:55:53,584 | news_collector | INFO |     Found 21 articles on page 1
+2026-01-21 11:55:55,586 | news_collector | INFO |   Scraping TDS page 2/2: https://towardsdatascience.com/latest/page/2
+2026-01-21 11:56:08,996 | news_collector | INFO |     Found 21 articles on page 2
+2026-01-21 11:56:10,997 | news_collector | INFO | ✅ TowardsDataScience: 21 articles collectés
+2026-01-21 11:56:10,998 | news_collector | INFO | ======================================================================
+2026-01-21 11:56:10,998 | news_collector | INFO | 📊 RÉSUMÉ COLLECTE
+2026-01-21 11:56:10,998 | news_collector | INFO |    Total articles : 81
+2026-01-21 11:56:10,998 | news_collector | INFO |    Total erreurs : 0
+2026-01-21 11:56:10,998 | news_collector | INFO | ======================================================================
+2026-01-21 11:56:11,009 | news_collector | INFO | ✅ Articles sauvegardés: data/articles_raw.jsonl
+2026-01-21 11:56:11,012 | news_collector | INFO | ✅ Erreurs sauvegardées: data/collection_errors.json
+2026-01-21 11:56:11,013 | __main__ | INFO | ✅ ÉTAPE 1 COMPLÉTÉE : 81 articles collectés
+2026-01-21 11:56:11,029 | __main__ | INFO | 
+===========================================================================
+2026-01-21 11:56:11,029 | __main__ | INFO | ÉTAPE 2 : PRÉTRAITEMENT NLP
+2026-01-21 11:56:11,029 | __main__ | INFO | ===========================================================================
+2026-01-21 11:56:11,539 | text_preprocessor | INFO | ✅ Modèle spaCy chargé: en_core_web_sm
+2026-01-21 11:56:11,539 | text_preprocessor | INFO | 🔧 Preprocessing 81 articles...
+2026-01-21 11:56:12,749 | text_preprocessor | INFO |   ✓ 20/81 articles
+2026-01-21 11:56:13,892 | text_preprocessor | INFO |   ✓ 40/81 articles
+2026-01-21 11:56:14,784 | text_preprocessor | INFO |   ✓ 60/81 articles
+2026-01-21 11:56:16,174 | text_preprocessor | INFO |   ✓ 80/81 articles
+2026-01-21 11:56:16,238 | text_preprocessor | INFO | ✅ Preprocessing terminé: 81 articles
+2026-01-21 11:56:16,246 | __main__ | INFO | ✅ ÉTAPE 2 COMPLÉTÉE : 81 articles traités
+2026-01-21 11:56:16,246 | __main__ | INFO | 
+===========================================================================
+2026-01-21 11:56:16,246 | __main__ | INFO | ÉTAPE 3 : CLASSIFICATION & EXTRACTION
+2026-01-21 11:56:16,246 | __main__ | INFO | ===========================================================================
+2026-01-21 11:56:16,246 | news_classifier | INFO | 📥 Chargement modèle: facebook/bart-large-mnli...
+2026-01-21 11:56:17,334 | news_classifier | INFO | ✅ Modèle chargé: facebook/bart-large-mnli
+2026-01-21 11:56:18,045 | news_classifier | INFO | ✅ Sentiment classifier chargé
+2026-01-21 11:56:18,045 | news_classifier | INFO | 🤖 Classification 81 articles...
+2026-01-21 11:56:23,324 | news_classifier | INFO |   ✓ 10/81 articles
+2026-01-21 11:56:28,228 | news_classifier | INFO |   ✓ 20/81 articles
+2026-01-21 11:56:32,140 | news_classifier | INFO |   ✓ 30/81 articles
+2026-01-21 11:56:36,444 | news_classifier | INFO |   ✓ 40/81 articles
+2026-01-21 11:56:41,988 | news_classifier | INFO |   ✓ 50/81 articles
+2026-01-21 11:56:45,735 | news_classifier | INFO |   ✓ 60/81 articles
+2026-01-21 11:56:50,255 | news_classifier | INFO |   ✓ 70/81 articles
+2026-01-21 11:56:54,691 | news_classifier | INFO |   ✓ 80/81 articles
+2026-01-21 11:56:55,140 | news_classifier | INFO | 🔍 Duplicate detection (threshold=0.85)...
+2026-01-21 11:56:55,166 | news_classifier | INFO | ✅ Duplicate detection: 1 doublons trouvés
+2026-01-21 11:56:55,168 | news_classifier | INFO | ✅ Classification terminée: 81 articles
+2026-01-21 11:56:55,174 | __main__ | INFO | ✅ ÉTAPE 3 COMPLÉTÉE : 81 articles classifiés
+2026-01-21 11:56:55,421 | __main__ | INFO | 
+===========================================================================
+2026-01-21 11:56:55,421 | __main__ | INFO | ÉTAPE 4 : GÉNÉRATION RAPPORT
+2026-01-21 11:56:55,421 | __main__ | INFO | ===========================================================================
+2026-01-21 11:56:55,421 | report_generator | INFO | 📝 Génération rapport...
+2026-01-21 11:56:55,421 | report_generator | INFO | 📈 Extraction trending topics...
+2026-01-21 11:56:55,421 | report_generator | INFO | ✅ 3 trending topics trouvés
+2026-01-21 11:56:55,421 | report_generator | INFO | ✨ Extraction must-read articles...
+2026-01-21 11:56:55,421 | report_generator | INFO | ✅ 5 must-read articles sélectionnés
+2026-01-21 11:56:55,421 | report_generator | INFO | 📊 Analyse thématique...
+2026-01-21 11:56:55,421 | report_generator | INFO | 😊 Analyse sentiments...
+2026-01-21 11:56:55,437 | report_generator | INFO | ✅ Rapport sauvegardé: output\veille_report.txt
+2026-01-21 11:56:55,437 | __main__ | INFO | ✅ ÉTAPE 4 COMPLÉTÉE : Rapport sauvegardé
+2026-01-21 11:56:55,437 | __main__ | INFO | 
+===========================================================================
+2026-01-21 11:56:55,437 | __main__ | INFO | ✅ PIPELINE COMPLET - SUCCÈS
+2026-01-21 11:56:55,439 | __main__ | INFO | ===========================================================================
+2026-01-21 11:56:55,439 | __main__ | INFO | Rapport généré: output/veille_report.txt
+2026-01-21 11:56:55,439 | __main__ | INFO | Articles traités: 81
+2026-01-21 11:56:55,439 | __main__ | INFO | Temps total: 11:56:55
+2026-01-21 11:56:55,439 | __main__ | INFO | ===========================================================================

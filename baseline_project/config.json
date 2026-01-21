@@ -19,7 +19,7 @@
     "towards_data_science": {
       "enabled": true,
       "url": "https://towardsdatascience.com/latest",
-      "num_pages": 5,
+      "num_pages": 2,
       "timeout": 15,
       "delay_between_requests": 2,
       "fetch_content": true
@@ -49,7 +49,7 @@
     "model_name": "facebook/bart-large-mnli",
     "default_labels": ["Beginner", "Intermediate", "Advanced"],
     "source_labels": {
-      "HackerNews": ["Technical", "News", "Tutorial", "Opinion", "Research"],
+      "HackerNews": ["Beginner", "Intermediate", "Advanced"],
       "TowardsDataScience": ["Beginner", "Intermediate", "Advanced"]
     },
     "confidence_threshold": 0.5

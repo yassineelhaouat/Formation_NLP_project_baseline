@@ -1,114 +1,113 @@
 ===========================================================================
 📰 VEILLE AUTOMATIQUE : NLP & Python
-Généré le 21 January 2026 à 10:24
+Généré le 21 January 2026 à 11:56
 ===========================================================================
 
 📊 RÉSUMÉ EXÉCUTIF
 ---------------------------------------------------------------------------
-Articles collectés : 114
-Articles uniques : 110 (dédupli rate: 3.5%)
+Articles collectés : 81
+Articles uniques : 80 (dédupli rate: 1.2%)
 
 🔥 TRENDING TOPICS (Sujets du moment)
 ---------------------------------------------------------------------------
 
 1. ADVANCED
-   Articles: 37
+   Articles: 59
    Sentiment dominant: Critique
    Exemples:
-     • How to Perform Large Code Refactors in Cursor
-     • Why Package Installs Are Slow (And How to Fix It)
-     • Bridging the Gap Between Research and Readability 
+     • The Agentic AI Handbook: Production-Ready Patterns
+     • Anthropic's original take home assignment open sou
+     • The percentage of Show HN posts is increasing, but
 
-2. TECHNICAL
-   Articles: 17
+2. BEGINNER
+   Articles: 14
    Sentiment dominant: Critique
    Exemples:
      • 200 MB RAM FreeBSD Desktop
-     • cURL removes bug bounties
-     • Libbbf: Bound Book Format, A high-performance cont
+     • Show HN: Mastra 1.0, open-source JavaScript agent 
+     • Hypnosis with Aphantasia
 
-3. RESEARCH
-   Articles: 17
+3. INTERMEDIATE
+   Articles: 7
    Sentiment dominant: Critique
    Exemples:
-     • Lunar Radio Telescope to Unlock Cosmic Mysteries
-     • Our approach to age prediction
-     • Ask HN: Do you have any evidence that agentic codi
+     • Infracost (YC W21) Is Hiring Sr Back End Eng (Node
+     • Director Gore Verbinski: Unreal Engine is the grea
+     • The Zen of Reticulum
 
 
 ✨ ARTICLES À NE PAS MANQUER
 ---------------------------------------------------------------------------
 
-📌 1. What Is a Knowledge Graph — and Why It Matters
-   Source: TowardsDataScience
-   URL: https://towardsdatascience.com/what-is-a-knowledge-graph-and-why-it-matters/
+📌 1. LG UltraFine Evo 6K 32-inch Monitor Review
+   Source: HackerNews
+   URL: https://www.wired.com/review/lg-ultrafine-evo-6k-32-inch-monitor/
    Niveau: Advanced
-   Confiance: 92.7%
+   Confiance: 69.3%
    Sentiment: Critique
 
-📌 2. Beyond the Flat Table: Building an Enterprise-Grade Financial Model in Power BI
-   Source: TowardsDataScience
-   URL: https://towardsdatascience.com/beyond-the-flat-table-building-an-enterprise-grade-financial-model-in-power-bi/
-   Niveau: Advanced
-   Confiance: 90.2%
-   Sentiment: Positif
-
-📌 3. Federated Learning, Part 1: The Basics of Training Models Where the Data Lives
-   Source: TowardsDataScience
-   URL: https://towardsdatascience.com/federated-learning-part-1-the-basics-of-training-models-where-the-data-lives/
-   Niveau: Beginner
-   Confiance: 88.6%
-   Sentiment: Positif
-
-📌 4. An introduction to AWS Bedrock
-   Source: TowardsDataScience
-   URL: https://towardsdatascience.com/an-introduction-to-aws-bedrock/
-   Niveau: Beginner
-   Confiance: 87.8%
+📌 2. Infracost (YC W21) Is Hiring Sr Back End Eng (Node.js+SQL) to Shift FinOps Left
+   Source: HackerNews
+   URL: https://www.ycombinator.com/companies/infracost/jobs/Sr9rmHs-senior-backend-engineer-node-js-sql
+   Niveau: Intermediate
+   Confiance: 68.9%
    Sentiment: Critique
 
-📌 5. Beyond Prompting: The Power of Context Engineering
-   Source: TowardsDataScience
-   URL: https://towardsdatascience.com/beyond-prompting-the-power-of-context-engineering/
+📌 3. Libbbf: Bound Book Format, A high-performance container for comics and manga
+   Source: HackerNews
+   URL: https://github.com/ef1500/libbbf
    Niveau: Advanced
-   Confiance: 82.6%
+   Confiance: 65.3%
+   Sentiment: Positif
+
+📌 4. Engineering as Humanity's Highest Achievement
+   Source: HackerNews
+   URL: https://walkingtheworld.substack.com/p/engineering-as-humanitys-highest
+   Niveau: Advanced
+   Confiance: 62.9%
+   Sentiment: Positif
+
+📌 5. IP over Avian Carriers with Quality of Service (1999)
+   Source: HackerNews
+   URL: https://www.rfc-editor.org/rfc/rfc2549.html
+   Niveau: Intermediate
+   Confiance: 61.6%
    Sentiment: Positif
 
 
 📊 ANALYSE THÉMATIQUE
 ---------------------------------------------------------------------------
 
-Top Keywords (4828 tokens uniques):
-  • use                  (175 mentions)
-  • datum                (144 mentions)
-  • model                (135 mentions)
-  • time                 (127 mentions)
-  • work                 (106 mentions)
-  • code                 (89 mentions)
-  • ai                   (77 mentions)
-  • not                  (77 mentions)
-  • term                 (77 mentions)
-  • agent                (73 mentions)
+Top Keywords (3999 tokens uniques):
+  • use                  (81 mentions)
+  • time                 (71 mentions)
+  • work                 (71 mentions)
+  • datum                (66 mentions)
+  • code                 (61 mentions)
+  • not                  (59 mentions)
+  • agent                (54 mentions)
+  • ai                   (52 mentions)
+  • like                 (50 mentions)
+  • need                 (50 mentions)
 
 📈 DISTRIBUTION PAR SOURCE:
 
   🔹 HackerNews (60 articles):
-     • Technical      :  17 ( 28.3%)
-     • Research       :  17 ( 28.3%)
-     • Opinion        :  14 ( 23.3%)
-     • News           :  12 ( 20.0%)
+     • Advanced       :  44 ( 73.3%)
+     • Beginner       :  11 ( 18.3%)
+     • Intermediate   :   5 (  8.3%)
 
-  🔹 TowardsDataScience (50 articles):
-     • Advanced       :  37 ( 74.0%)
-     • Beginner       :  11 ( 22.0%)
-     • Intermediate   :   2 (  4.0%)
+  🔹 TowardsDataScience (20 articles):
+     • Advanced       :  15 ( 75.0%)
+     • Beginner       :   3 ( 15.0%)
+     • Intermediate   :   2 ( 10.0%)
 
 
 😊 ANALYSE SENTIMENTS
 ---------------------------------------------------------------------------
-Positif        :  34 articles ( 30.9%)
-Critique       :  63 articles ( 57.3%)
-Neutre         :  13 articles ( 11.8%)
+Positif        :  25 articles ( 31.2%)
+Critique       :  45 articles ( 56.2%)
+Neutre         :  10 articles ( 12.5%)
 
 
 ===========================================================================
