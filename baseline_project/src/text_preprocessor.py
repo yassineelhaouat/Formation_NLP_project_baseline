@@ -64,7 +64,7 @@ class TextPreprocessor:
         
         # Charger modèle spaCy
         lang = config.get('preprocessing', {}).get('language', 'fr')
-        model_name = config.get('preprocessing', {}).get('spacy_model', 'fr_core_news_sm')
+        model_name = config.get('preprocessing', {}).get('spacy_model', 'en_core_web_sm')
         
         try:
             self.nlp = spacy.load(model_name)

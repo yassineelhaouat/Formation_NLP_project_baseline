@@ -61,7 +61,7 @@ class NewsClassifier:
         
         # Charger modèle classification
         model_name = config.get('classification', {}).get('model_name', 
-                                                          'distilbert-base-multilingual-uncased')
+                                                          'facebook/bart-large-mnli')
         
         try:
             logger.info(f"📥 Chargement modèle: {model_name}...")

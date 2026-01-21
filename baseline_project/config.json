@@ -6,9 +6,10 @@
     "hacker_news": {
       "enabled": true,
       "url": "https://news.ycombinator.com/",
-      "num_pages": 2,
+      "num_pages": 10,
       "timeout": 10,
-      "delay_between_requests": 2
+      "delay_between_requests": 2,
+      "fetch_content": true
     },
     "pycoders_rss": {
       "enabled": true,
@@ -17,15 +18,15 @@
     },
     "youtube": {
       "enabled": false,
-      "api_key": "YOUR_API_KEY_HERE",
+      "api_key": "",
       "queries": ["NLP python tutorial", "BERT fine-tuning", "transformers"],
       "max_results": 5
     }
   },
   
   "preprocessing": {
-    "language": "fr",
-    "spacy_model": "fr_core_news_sm",
+    "language": "en",
+    "spacy_model": "en_core_web_sm",
     "normalize_case": true,
     "remove_urls": false,
     "remove_html": true,
@@ -37,7 +38,7 @@
   
   "classification": {
     "model_type": "zero-shot",
-    "model_name": "distilbert-base-multilingual-uncased",
+    "model_name": "facebook/bart-large-mnli",
     "labels": ["Beginner", "Intermediate", "Advanced"],
     "confidence_threshold": 0.5
   },

@@ -69,28 +69,47 @@ class NewsCollector:
     # ═══════════════════════════════════════════════════════════════════════
     # HACKER NEWS
     # ═══════════════════════════════════════════════════════════════════════
-    
+
+    def fetch_article_content(self, url: str, timeout: int = 10) -> str:
+        """
+        Récupérer le contenu textuel d'un article depuis son URL
+        
+        Args:
+            url: URL de l'article
+            timeout: Délai maximum
+        
+        Returns:
+            Contenu textuel extrait (premiers 1000 caractères)
+        """
+        try:
+            # Ignorer certains domaines problématiques
+            skip_domains = ['youtube.com', 'twitter.com', 'x.com', 'github.com', 'pdf']
+            if any(domain in url.lower() for domain in skip_domains):
+                return ""
+            
+            response = self.session.get(url, timeout=timeout)
+            response.raise_for_status()
+            
+            soup = BeautifulSoup(response.content, 'html.parser')
+            
+            # Supprimer scripts, styles, nav, footer
+            for element in soup(['script', 'style', 'nav', 'footer', 'header', 'aside']):
+                element.decompose()
+            
+            # Extraire texte des paragraphes
+            paragraphs = soup.find_all('p')
+            content = ' '.join(p.get_text(strip=True) for p in paragraphs[:10])
+            
+            # Limiter à 1000 caractères
+            return content if content else ""
+        
+        except Exception as e:
+            logger.debug(f"Could not fetch content from {url}: {str(e)}")
+            return ""
+
     def collect_from_hacker_news(self) -> List[Article]:
         """
-        Scrape Hacker News
-        
-        Structure HTML :
-        <table class="itemlist">
-          <tr class="athing">
-            <td class="title">
-              <span class="titleline">
-                <a href="...">Title</a>
-              </span>
-            </td>
-          </tr>
-          <tr class="subtext">
-            <span class="score">42 points</span>
-            <a class="hnuser">author</a>
-            <span class="age">2 hours ago</span>
-            <a class="togg">↓</a>
-            <a href="item?id=...">123 comments</a>
-          </tr>
-        </table>
+        Scrape Hacker News avec récupération du contenu
         """
         logger.info("🔄 Collecte HackerNews...")
         articles = []
@@ -101,6 +120,7 @@ class NewsCollector:
             num_pages = config.get('num_pages', 2)
             timeout = config.get('timeout', 10)
             delay = config.get('delay_between_requests', 2)
+            fetch_content = config.get('fetch_content', False)  # NOUVEAU
             
             for page_num in range(num_pages):
                 page_url = f"{url}?p={page_num + 1}" if page_num > 0 else url
@@ -124,7 +144,7 @@ class NewsCollector:
                             title = title_link.get_text(strip=True)
                             article_url = title_link.get('href', '')
                             
-                            # Extraire metadata (score, auteur, temps)
+                            # Extraire metadata
                             subtext_row = row.find_next('tr', class_='subtext')
                             if subtext_row:
                                 score_span = subtext_row.find('span', class_='score')
@@ -138,10 +158,18 @@ class NewsCollector:
                             else:
                                 score = author = date = None
                             
+                            # NOUVEAU: Récupérer contenu réel si activé
+                            content = title  # Default: titre
+                            if fetch_content and article_url.startswith('http'):
+                                fetched = self.fetch_article_content(article_url, timeout=5)
+                                if fetched:
+                                    content = f"{title}. {fetched}"
+                                    logger.debug(f"    ✓ Content fetched for: {title[:30]}...")
+                            
                             article = Article(
                                 title=title,
                                 url=article_url,
-                                content=title,  # Placeholder: titre = contenu initial
+                                content=content,  # AMÉLIORÉ
                                 source='HackerNews',
                                 date=date,
                                 author=author,
@@ -149,7 +177,6 @@ class NewsCollector:
                             )
                             
                             articles.append(article)
-                            logger.debug(f"    ✓ {title[:50]}...")
                         
                         except Exception as e:
                             self.errors.append({
@@ -159,7 +186,6 @@ class NewsCollector:
                             })
                             continue
                     
-                    # Délai entre requêtes (respectueux)
                     time.sleep(delay)
                 
                 except requests.RequestException as e:
@@ -176,12 +202,8 @@ class NewsCollector:
         
         except Exception as e:
             logger.error(f"❌ HackerNews collection failed: {str(e)}")
-            self.errors.append({
-                'source': 'HackerNews',
-                'error': str(e),
-                'timestamp': datetime.now().isoformat()
-            })
             return []
+
     
     # ═══════════════════════════════════════════════════════════════════════
     # RSS FEEDS
